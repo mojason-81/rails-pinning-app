@@ -26,3 +26,20 @@ h1 {
 hr{
   clear:both;
 }
+
+/************
+my css below
+************/
+
+form > label, form > input, form > button {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.pin-container {
+  padding: 0 0.25em 0 0.25em;
+  margin: 0.25em auto 0.25em auto;
+}
+.pin {
+  border: #C6190E solid 0.08em;
+}
