@@ -19,19 +19,43 @@ class PinsController < ApplicationController
 
   def create
     @pin = Pin.create(pin_params)
+    #@pin.slug = @pin.make_slug(@pin.title)
     if @pin.valid?
       @pin.save
       redirect_to pin_path(@pin)
     else
-      @error = @pin.errors
+      @errors = @pin.errors
       render :new
     end
-    #redirect_to "/pins"
   end
+
+=begin
+
+  def make_slug(input)
+      alpha = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+      char_list = []
+      input.each_char do |c|
+        if c == " "
+          c = "-"
+          char_list.push c
+        elsif alpha.include? c
+          c.downcase!
+          char_list.push c
+        end
+      end
+      slug = char_list.join
+      while slug.include?("--")
+        slug = slug.gsub(/--/, "-")
+      end
+      return slug
+    end
+
+=end
 
   private
 
     def pin_params
       params.require(:pin).permit(:title, :url, :slug, :text, :category_id)
     end
+
 end
