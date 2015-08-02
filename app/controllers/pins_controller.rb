@@ -1,4 +1,5 @@
 class PinsController < ApplicationController
+  require 'enumerator'
   
   def index
     @pins = Pin.all
