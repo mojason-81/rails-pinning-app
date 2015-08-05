@@ -17,6 +17,23 @@ class PinsController < ApplicationController
     @pin = Pin.new
   end
 
+  def edit
+    @pin = Pin.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @pin = Pin.find(params[:id])
+    @pin.update_attributes(pin_params)
+    if @pin.valid?
+      @pin.save
+      redirect_to pin_path(@pin)
+    else
+      @errors = @pin.errors
+      render :edit
+    end
+  end
+
   def create
     @pin = Pin.create(pin_params)
     #@pin.slug = @pin.make_slug(@pin.title)
