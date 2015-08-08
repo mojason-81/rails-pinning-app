@@ -84,7 +84,4 @@ Rails.application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  heroku config:set S3_BUCKET_NAME=skillcrush-rails
-  heroku config:set AWS_ACCESS_KEY_ID=AKIAI4Y7CIUPPOFAYN2Q
-  heroku config:set AWS_SECRET_ACCESS_KEY=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
 end
