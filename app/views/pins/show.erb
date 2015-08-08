@@ -1,13 +1,19 @@
 <div class="header">
   <h1>
-    <i class="fa fa-laptop"></i>
+    <% if "#{@pin.category.name}" == "rails" %>
+      <%= image_tag('rails-logo-thumbnail.png') %>
+    <% elsif "#{@pin.category.name}" == "ruby" %>
+      <%= image_tag('ruby-logo-thumbnail.png') %>
+    <% end %>
     <%= "#{@pin.title}" %>
   </h1>
 </div>
 
 <div class="show-pin">
   <p><%= "#{@pin.text}" %></p>
-
+  <% if !@pin.image.nil? %>
+    <img src="<%= @pin.image.url(:medium) %>">
+  <% end %>
   <hr/>
   <p>
     <b>Visit <%= "#{@pin.title}" %> at: </b>

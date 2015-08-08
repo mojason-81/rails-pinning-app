@@ -40,6 +40,10 @@ form > label, form > input, form > button {
   padding: 0 0.25em 0 0.25em;
   margin: 0.25em auto 0.25em auto;
 }
+
+.pin-title {
+  overflow: hidden;
+}
 .pin {
   border: #C6190E solid 0.08em;
 }
