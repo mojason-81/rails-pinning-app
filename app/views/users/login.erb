@@ -1,0 +1,15 @@
+<div class="header">
+	<h1>Login</h1>
+</div>
+<hr />
+<div class="container main">
+	<%= form_tag "/login" %>
+	<label for="email">Email</label>
+	<%= text_field_tag "email" %><br />
+	<label for="password">Password</label>
+	<%= text_field_tag "password" %><br />
+	<%= submit_tag "Login" %>
+	<% if !@errors.nil? %>
+ 		<p class='error'><%= "#{@errors}" %></p>
+ 	<% end %>
+</div>
