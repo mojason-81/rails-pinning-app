@@ -36,7 +36,7 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: "rails"}    
+        category_id: 2}    
     end
     
     after(:each) do
@@ -77,7 +77,78 @@ RSpec.describe PinsController do
       @pin_hash.delete(:title)
       post :create, pin: @pin_hash
       expect(assigns[:errors].present?).to be(true)
-    end    
-    
+    end
+  end
+
+  describe "GET edit" do
+    before(:each) do
+      @pin_hash = { 
+        title: "Rails Wizard", 
+        url: "http://railswizard.org", 
+        slug: "rails-wizard", 
+        text: "A fun and helpful Rails Resource",
+        category_id: 2}
+      post :create, pin: @pin_hash
+      @pin = Pin.find_by_slug("rails-wizard")
+    end
+
+    after(:each) do
+      @pin = Pin.find_by_slug("rails-wizard")
+      if !@pin.nil?
+        @pin.destroy
+      end
+    end
+
+    it 'responds with success' do
+      get :edit, {:id => @pin.to_param}
+      expect(response.success?).to be(true)
+    end
+
+    it 'renders the edit template' do
+      get :edit, {:id => @pin.to_param}
+      expect(response).to render_template("edit")
+    end
+
+    it 'assigns @pin to the Pin with appropriate id' do
+      @pin = Pin.find_by_id(@pin.id)
+      expect(assigns[:pin]).to eq(@pin)
+    end
+  end
+
+  ###############################
+  ##  This block still in work ##
+  ###############################
+  describe "POST update" do
+    before(:each) do
+      @pin_hash = { 
+        title: "Rails Wizard", 
+        url: "http://railswizard.org", 
+        slug: "rails-wizard", 
+        text: "A fun and helpful Rails Resource",
+        category_id: 2}
+      post :create, pin: @pin_hash
+      @pin = Pin.find_by_slug("rails-wizard")
+    end
+
+    after(:each) do
+      @pin = Pin.find_by_slug("rails-wizard")
+      if !@pin.nil?
+        @pin.destroy
+      end
+    end
+
+    it 'responds with success' do
+      @pin.title = "Wizards on Rails"
+      @pin.save
+      #@pin_hash[:title] = "Wizards on Rails"
+      #post :update, pin: @pin_hash
+      expect(response.success?).to be(true)
+    end
+
+    it 'updates a pin' do
+      @pin.title = "Wizards on Rails"
+      @pin.save
+      expect(Pin.find_by_slug("rails-wizard").title).to eq("Wizards on Rails")
+    end
   end
 end
