@@ -38,6 +38,13 @@ class PinsController < ApplicationController
     @pin = Pin.create(pin_params)
     #@pin.slug = @pin.make_slug(@pin.title)
     if @pin.valid?
+      if @pin.category_id == "rails"
+        @pin.category_id = 2
+      elsif @pin.category_id == "ruby"
+        @pin.category_id = 1
+      else
+        @pin.category_id = 3
+      end
       @pin.save
       redirect_to pin_path(@pin)
     else
