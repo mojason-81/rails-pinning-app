@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   post '/login' => "users#authenticate"
 
+  get 'pins/id/edit' => 'pins#edit'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
