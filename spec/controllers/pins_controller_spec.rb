@@ -128,6 +128,13 @@ RSpec.describe PinsController do
         category_id: 2}
       post :create, pin: @pin_hash
       @pin = Pin.find_by_slug("rails-wizard")
+
+      @updated_pin = {
+        title: "updated",
+        url: "http://railswizard.org", 
+        slug: "updated-pin", 
+        text: "A fun and helpful Rails Resource",
+        category_id: 2}
     end
 
     after(:each) do
@@ -137,18 +144,21 @@ RSpec.describe PinsController do
       end
     end
 
-    it 'responds with success' do
-      @pin.title = "Wizards on Rails"
-      @pin.save
-      #@pin_hash[:title] = "Wizards on Rails"
-      #post :update, pin: @pin_hash
-      expect(response.success?).to be(true)
+    it 'updates a pin' do
+      put :update, id: @pin.id, pin: @updated_pin
+      @pin.reload
+      expect(@pin.slug).to eq(@updated_pin[:slug])
     end
 
-    it 'updates a pin' do
-      @pin.title = "Wizards on Rails"
-      @pin.save
-      expect(Pin.find_by_slug("rails-wizard").title).to eq("Wizards on Rails")
+    it 'responds with a redirect following a POST to /pins' do
+      put :update, id: @pin.id, pin: @updated_pin
+      #expect(response.redirect?).to be(true)
+      expect(response).to redirect_to("/pins/name-#{@pin.slug}")
+    end
+
+    it 'responds with success' do
+      put :update, id: @pin.id, pin: @updated_pin
+      expect(response.success?).to be(true)
     end
   end
 end

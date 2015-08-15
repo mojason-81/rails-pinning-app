@@ -24,13 +24,11 @@ class PinsController < ApplicationController
 
   def update
     @pin = Pin.find(params[:id])
-    @pin.update_attributes(pin_params)
-    if @pin.valid?
-      @pin.save
-      redirect_to pin_path(@pin)
+    if @pin.update(pin_params)
+      redirect_to "/pins/name-#{@pin.slug}"
     else
       @errors = @pin.errors
-      render :edit
+      render :edit, status: 302
     end
   end
 
@@ -39,9 +37,9 @@ class PinsController < ApplicationController
     #@pin.slug = @pin.make_slug(@pin.title)
     if @pin.valid?
       if @pin.category_id == "rails"
-        @pin.category_id = 2
+        @pin.category_id = Category.find_by_name("ruby")
       elsif @pin.category_id == "ruby"
-        @pin.category_id = 1
+        @pin.category_id = Category.find_by_name("rails")
       else
         @pin.category_id = 3
       end
