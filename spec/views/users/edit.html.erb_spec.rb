@@ -1,13 +1,15 @@
 require 'spec_helper'
+FactoryGirl.find_definitions
 
 RSpec.describe "users/edit", type: :view do
   before(:each) do
-    @user = assign(:user, User.create!(
-      :first_name => "MyString",
-      :last_name => "MyString",
-      :email => "MyString",
-      :password => "MyString"
-    ))
+    @user = FactoryGirl.create(:user)
+  end
+
+  after(:each) do
+    if !User.find_by_first_name("Skillcrush").nil?
+      User.find_by_first_name("Skillcrush").destroy
+    end
   end
 
   it "renders the edit user form" do
