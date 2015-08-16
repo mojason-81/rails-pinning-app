@@ -28,7 +28,7 @@ class PinsController < ApplicationController
       redirect_to "/pins/name-#{@pin.slug}"
     else
       @errors = @pin.errors
-      render :edit, status: 302
+      render :edit
     end
   end
 

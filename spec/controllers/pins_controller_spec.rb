@@ -115,9 +115,6 @@ RSpec.describe PinsController do
     end
   end
 
-  ###############################
-  ##  This block still in work ##
-  ###############################
   describe "POST update" do
     before(:each) do
       @pin_hash = { 
@@ -131,10 +128,10 @@ RSpec.describe PinsController do
 
       @updated_pin = {
         title: "updated",
-        url: "http://railswizard.org", 
-        slug: "updated-pin", 
-        text: "A fun and helpful Rails Resource",
-        category_id: 2}
+        url: "updated", 
+        slug: "updated", 
+        text: "updated",
+        category_id: 1}
     end
 
     after(:each) do
@@ -144,21 +141,22 @@ RSpec.describe PinsController do
       end
     end
 
-    it 'updates a pin' do
+    it 'responds with a redirect following a PUT to /pins' do
       put :update, id: @pin.id, pin: @updated_pin
       @pin.reload
-      expect(@pin.slug).to eq(@updated_pin[:slug])
-    end
-
-    it 'responds with a redirect following a POST to /pins' do
-      put :update, id: @pin.id, pin: @updated_pin
-      #expect(response.redirect?).to be(true)
+      expect(response.redirect?).to be(true)
       expect(response).to redirect_to("/pins/name-#{@pin.slug}")
     end
 
     it 'responds with success' do
       put :update, id: @pin.id, pin: @updated_pin
       expect(response.success?).to be(true)
+    end
+
+    it 'updates a pin' do
+      put :update, id: @pin.id, pin: @updated_pin
+      @pin.reload
+      expect(assigns[:pin].slug).to eq(@updated_pin[:slug])
     end
   end
 end

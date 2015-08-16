@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+=begin Routing to /users is blocked in routes.rb
 RSpec.describe "users/index", type: :view do
   before(:each) do
     assign(:users, [
@@ -26,3 +26,4 @@ RSpec.describe "users/index", type: :view do
     assert_select "tr>td", :text => "Password".to_s, :count => 2
   end
 end
+=end

@@ -61,11 +61,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    # no idea what this is supposed to do.
-    # I removed it and there was no affect.
-  end
-
   def authenticate
     @valid_user = User.authenticate(params[:email], params[:password])
     if @valid_user == nil
