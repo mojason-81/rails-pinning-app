@@ -1,7 +1,8 @@
 class PinsController < ApplicationController
+  before_action :require_login, except: [:show, :show_by_name, :index]
   
   def index
-    @pins = Pin.all
+    @pins = Pin.where("user_id=?", session[:user_id])
   end
   
   def show
@@ -37,9 +38,9 @@ class PinsController < ApplicationController
     #@pin.slug = @pin.make_slug(@pin.title)
     if @pin.valid?
       if @pin.category_id == "rails"
-        @pin.category_id = Category.find_by_name("ruby")
-      elsif @pin.category_id == "ruby"
         @pin.category_id = Category.find_by_name("rails")
+      elsif @pin.category_id == "ruby"
+        @pin.category_id = Category.find_by_name("ruby")
       else
         @pin.category_id = 3
       end
@@ -77,7 +78,7 @@ class PinsController < ApplicationController
   private
 
     def pin_params
-      params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image)
+      params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image, :user_id)
     end
 
 end

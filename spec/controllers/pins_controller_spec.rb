@@ -1,14 +1,27 @@
 require 'spec_helper'
+FactoryGirl.find_definitions
+
 RSpec.describe PinsController do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    login_user(@user)
+  end
+
+  after(:each) do
+    if !@user.destroyed?
+      @user.destroy
+    end
+  end
+
 	describe "GET index" do
 		it 'renders the index template' do
 			get :index
 			expect(response).to render_template("index")
 		end
 
-		it 'populates @pins with all pins' do
+		it 'populates @pins with user pins' do
 			get :index
-			expect(assigns[:pins]).to eq(Pin.all)
+			expect(assigns[:pins]).to eq(Pin.where("user_id=?", session[:user_id]))
 		end
 	end
 
@@ -36,7 +49,7 @@ RSpec.describe PinsController do
         url: "http://railswizard.org", 
         slug: "rails-wizard", 
         text: "A fun and helpful Rails Resource",
-        category_id: 2}    
+        category_id: 2}
     end
     
     after(:each) do

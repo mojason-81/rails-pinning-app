@@ -9,6 +9,18 @@
 </head>
 <body>
   <div class="container">
+
+  	<% if !current_user.nil? %>
+	  	<div class="pull-right">
+	  		<h3>
+	  			<%= "Hi, #{current_user.first_name}!" %>
+	  		</h3>
+	  		<h5>
+	  			<%= link_to "Logout", logout_path(current_user), method: :delete %>
+	  		</h5>
+	  	</div>
+	  <% end %>
+
     <%= yield %>
   </div>
 </body>

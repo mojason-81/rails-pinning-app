@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -63,12 +64,18 @@ class UsersController < ApplicationController
 
   def authenticate
     @valid_user = User.authenticate(params[:email], params[:password])
-    if @valid_user == nil
+    if @valid_user.nil?
       @errors = "Sorry, email or password is incorrect."
       render :login
     else
+      session[:user_id] = @valid_user.id
       redirect_to "/users/#{@valid_user.id}"
     end 
+  end
+
+  def logout
+    session.delete(:user_id)
+    render :login
   end
 
   private

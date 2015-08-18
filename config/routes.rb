@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get 'pins/id/edit' => 'pins#edit'
 
+  delete 'logout/:id' => "users#logout", as: :logout
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

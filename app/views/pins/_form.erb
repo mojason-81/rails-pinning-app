@@ -1,5 +1,8 @@
 <div class="form">
 	<%= form_for(@pin) do |form_builder_object| %>
+		<%= form_builder_object.hidden_field :user_id, value: session[:user_id] %>
+		<label for="pin_image">Image</label>
+		<%= form_builder_object.file_field :image %>
 		<label for="pin_title">Title</label><br />
 		<%= form_builder_object.text_field :title %>
 		<br />
