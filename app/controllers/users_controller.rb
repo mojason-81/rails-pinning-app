@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @pins = Pin.where("user_id=?", session[:user_id])
   end
 
   # GET /users/new

@@ -20,10 +20,21 @@
     <%= link_to "#{@pin.url}", "#{@pin.url}", html_options = {target: "_blank", class: "url"} %>
   </p>
 </div>
-<br/>
-<%= link_to "Edit", "/pins/#{@pin.id}/edit", html_options = {class: "url"} %>
+<div class="pin-users">
+  <h4>This has been pinned by:</h4>
+  <% @users.each do |user| %>
+    <p><%= "#{user.first_name} #{user.last_name}" %></p>
+  <% end %>
+</div>
 <br />
-<a href="/">
+<%= link_to repin_path(@pin), html_options = {class: "btn btn-default", method: "post"} do %>
+  <i class="fa fa-thumb-tack"></i>
+    Repin!
+<% end %>
+
+<%= link_to "Edit", "/pins/#{@pin.id}/edit", html_options = {class: "url btn btn-default"} %>
+
+<%= link_to pins_path, html_options = {class: "url btn btn-default"} do %>
   <i class="fa fa-home"></i>
   Back to Home
-</a>
+<% end %>
