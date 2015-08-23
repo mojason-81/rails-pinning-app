@@ -10,7 +10,7 @@ class CreatePinnings < ActiveRecord::Migration
 
     Pin.where(user_id: !nil).each do |pin|
     	if user.present?
-    		#puts "user present: #{user.id}"
+    		puts "user present: #{user.id}"
     		pin.pinnings.create(user: user)
     	end
     end
