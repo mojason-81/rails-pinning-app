@@ -1,5 +1,4 @@
 require 'spec_helper'
-FactoryGirl.find_definitions
 
 RSpec.describe "users/show", type: :view do
   before(:each) do

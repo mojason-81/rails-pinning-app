@@ -51,6 +51,7 @@ group :test do
 	gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem 'factory_girl_rails'
 end
 
 gem 'rails_12factor'

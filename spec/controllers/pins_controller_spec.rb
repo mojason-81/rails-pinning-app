@@ -1,5 +1,4 @@
 require 'spec_helper'
-FactoryGirl.find_definitions
 
 RSpec.describe PinsController do
   before(:each) do

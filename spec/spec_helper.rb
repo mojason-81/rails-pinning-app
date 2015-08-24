@@ -1,6 +1,9 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'factory_girl'
+FactoryGirl.factories.clear
+FactoryGirl.find_definitions
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
