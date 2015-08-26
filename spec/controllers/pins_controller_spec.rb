@@ -7,7 +7,7 @@ RSpec.describe PinsController do
   end
 
   after(:each) do
-    if !@user.destroyed?
+    if @user.present?
       @user.destroy
     end
   end
@@ -18,9 +18,10 @@ RSpec.describe PinsController do
 			expect(response).to render_template("index")
 		end
 
-		it 'populates @pins with user pins' do
+		it 'populates @pins with all pins' do
 			get :index
-			expect(assigns[:pins]).to eq(Pin.where("user_id=?", session[:user_id]))
+			#expect(assigns[:pins]).to eq(Pin.where("user_id=?", session[:user_id]))
+      expect(assign[:pins]).to eq(Pin.all)
 		end
 	end
 
