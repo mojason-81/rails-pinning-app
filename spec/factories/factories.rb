@@ -5,7 +5,8 @@ FactoryGirl.define do
     url "http://rails-cheat.com"
     text "A great tool for beginning developers"
     #slug
-    category Category.find_by_name("rails")
+    #category { Category.find_by_id(2) }
+    category_id 2
   end
   
   factory :user do

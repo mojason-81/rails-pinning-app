@@ -21,7 +21,7 @@ RSpec.describe PinsController do
 		it 'populates @pins with all pins' do
 			get :index
 			#expect(assigns[:pins]).to eq(Pin.where("user_id=?", session[:user_id]))
-      expect(assign[:pins]).to eq(Pin.all)
+      expect(assigns[:pins]).to eq(Pin.all)
 		end
 	end
 
@@ -172,4 +172,28 @@ RSpec.describe PinsController do
       expect(assigns[:pin].slug).to eq(@updated_pin[:slug])
     end
   end
+
+  describe "POST repin" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+      @pin = FactoryGirl.create(:pin)
+    end
+   
+    after(:each) do
+      pin = Pin.find_by_slug("rails-wizard")
+      if !pin.nil?
+        pin.destroy
+      end
+      logout(@user)
+    end
+
+    it 'responds with a redirect' do
+    end
+ 
+    it 'creates a user.pin' do
+    end
+   
+    it 'redirects to the user show page' do
+    end
 end
