@@ -11,8 +11,14 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if current_user.nil?
-      redirect_to "/login"
+      #redirect_to "/login"
+      redirect_to login_path
     end
   end
   helper_method :require_login
+
+  def logged_in?
+    !current_user.nil? && !current_user.id.nil?
+  end
+  helper_method :logged_in?
 end
