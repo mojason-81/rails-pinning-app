@@ -10,15 +10,39 @@
   <%= "#{@board.user.first_name} #{@board.user.last_name}" %>
 </p>
 
-<div>
-  <ul>
-    <% if !board_pinnings.nil? %>
-      <% board_pinnings.each do |pinning| %>
-        <li><%= link_to "Figure out pin title here", "/pins/#{pinning.pin_id}" %></li>
+<h1><%= @board.name %></h1>
+<hr />
+<% if !board_pinnings.nil? %>
+  <div class="pins">
+    <% board_pinnings.each_slice(3) do |row| %>
+      <div class="row">
+        <% row.each do |pinning| %>
+          <div class="pin-container col-md-4">
+              <div class="pin">
+                <div class="pin-header row">
+                  <div class="logo-thumbnail col-xs-3">
+                    <% if !pinning.pin.image.nil? %>
+                      <img src="<%= pinning.pin.image.url(:thumb) %>">
+                    <% end %>
+                  </div>
+
+                  <div class="pin-title col-xs-9 col-md-8 col-md-offset-1">
+                    <h4>
+                      <%= link_to "#{pinning.pin.title}", pin_by_name_path(slug: pinning.pin.slug), html_options = {target: "_blank", class: "url"} %>
+                    </h4>
+                    <%= link_to "#{pinning.pin.url}", "#{pinning.pin.url}", html_options = {target: "_blank", class: "url"} %>
+                  </div>
+                </div>
+                <hr/>
+                <p class="text"><%= "#{pinning.pin.text}" %></p>
+                <br />
+              </div>
+            </div>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
-  </ul>
-</div>
+    </div>
+  <% end %>
 
 <%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %> |

@@ -1,11 +1,11 @@
 <div class="form">
 	<%= form_for(@pin) do |form_builder_object| %>
-		<%= form_builder_object.hidden_field :user_id, value: session[:user_id] %>
+		<label for="board">Which board?</label>
 		<%= form_builder_object.fields_for :pinning do |p| %>
-			<label for="board">Which board?</label>
 			<%= p.collection_select(:board_id, current_user.boards, :id, :name, {}, {class: "form-control"}) %>
 			<%= p.hidden_field :user_id, value: current_user.id %>
 		<% end %>
+		<%= form_builder_object.hidden_field :user_id, value: session[:user_id] %>
 		<label for="pin_image">Image</label>
 		<%= form_builder_object.file_field :image %>
 		<label for="pin_title">Title</label><br />
