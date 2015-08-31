@@ -9,30 +9,27 @@
 </head>
 <body>
   <div class="container">
-
-  	<% if logged_in? %>
+    <% if logged_in? %>
       <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Dropdown
+          <%= "Hi, #{current_user.first_name}!" %>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li><a href="#">Separated link</a></li>
+          <li><%= link_to "Home", pins_path %></li>
+          <li><%= link_to "New Board", new_board_path %></li>
+          <li><%= link_to "Add a Pin", new_pin_path, method: :get %></li>
+          <li><%= link_to "Logout", logout_path(session), method: :delete %></li>
+          <li><%= link_to "My Boards", user_path(current_user) %></li>
+          <% if !user_boards.nil? %>
+            <% user_boards.each do |board| %>
+              <li class="dropdown-header"><%= link_to "#{board.name}", "/boards/#{board.id}", method: :get %></li>
+            <% end %>
+          <% end %>
         </ul>
       </div>
-	  	<div class="pull-right">
-	  		<h3>
-	  			<%= "Hi, #{current_user.first_name}!" %>
-	  		</h3>
-	  		<h5>
-	  			<%= link_to "Logout", logout_path(session), method: :delete %>
-	  		</h5>
-	  	</div>
 	  <% end %>
-	  <% if current_user.nil? %>
+	  <% if !logged_in? %>
 	  	<div class="pull-right">
 	  		<h3>
 	  			<%= link_to "Login", login_path %>
@@ -42,7 +39,6 @@
 	  		</h3>
 	  	</div>
 	  <% end %>
-
     <%= yield %>
   </div>
 </body>

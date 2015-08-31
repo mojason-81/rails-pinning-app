@@ -7,8 +7,19 @@
 
 <p>
   <strong>User:</strong>
-  <%= @board.user %>
+  <%= "#{@board.user.first_name} #{@board.user.last_name}" %>
 </p>
 
+<div>
+  <ul>
+    <% if !board_pinnings.nil? %>
+      <% board_pinnings.each do |pinning| %>
+        <li><%= link_to "Figure out pin title here", "/pins/#{pinning.pin_id}" %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
 <%= link_to 'Edit', edit_board_path(@board) %> |
-<%= link_to 'Back', boards_path %>
+<%= link_to 'Back', boards_path %> |
+<%= link_to "New Board", new_board_path %>

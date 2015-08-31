@@ -1,12 +1,12 @@
 class PinsController < ApplicationController
   before_action :require_login, except: [:show, :show_by_name, :index]
-  
+
   def index
     ## Uncomment to show only user's pins
     ## @pins = Pin.where("user_id=?", session[:user_id])
     @pins = Pin.all
   end
-  
+
   def show
     @pin = Pin.find(params[:id])
     @users = User.where(:id == @pin.user_id)

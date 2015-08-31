@@ -1,10 +1,12 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /boards
   # GET /boards.json
   def index
-    @boards = Board.all
+    #@boards = Board.all
+    @boards = Board.where("user_id=?", session[:user_id])
   end
 
   # GET /boards/1

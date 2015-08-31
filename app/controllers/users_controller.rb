@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @pins = Pin.where("user_id=?", session[:user_id])
+    @boards = Board.where("user_id=?", session[:user_id])
   end
 
   # GET /users/new
@@ -71,7 +72,7 @@ class UsersController < ApplicationController
     else
       session[:user_id] = @valid_user.id
       redirect_to "/users/#{@valid_user.id}"
-    end 
+    end
   end
 
   def logout
