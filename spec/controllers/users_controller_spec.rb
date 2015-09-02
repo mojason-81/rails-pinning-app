@@ -51,6 +51,7 @@ RSpec.describe UsersController, type: :controller do
   let(:invalid_attributes) {
     {
       first_name: @user.first_name,
+      email: @new_user.email,
       password: @user.password
     }
   }
@@ -189,19 +190,19 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "POST login" do
-=begin    
+=begin
     before(:all) do
       @user = User.create(first_name: "Skillcrush", last_name: "Coder", email: "coder@skillcrush.com", password: "secret")
       @valid_user_hash = {email: @user.email, password: @user.password}
       @invalid_user_hash = {email: "", password: ""}
     end
-   
+
     after(:all) do
       if !@user.destroyed?
         @user.destroy
       end
     end
-=end    
+=end
 
     it "redirects to the show view if params valid" do
       @user = User.create! valid_attributes
@@ -217,16 +218,16 @@ RSpec.describe UsersController, type: :controller do
       expect(assigns[:valid_user].first_name).to eq(@user.first_name)
       expect(response).not_to render_template(:login)
     end
-   
+
     it "renders the login view if params invalid" do
       @invalid_user_hash = invalid_attributes
       post :authenticate, @invalid_user_hash
-      expect(response).to render_template(:login)    
+      expect(response).to render_template(:login)
     end
-   
+
     it "populates the @errors variable if params invalid" do
       @invalid_user_hash = invalid_attributes
-      post :authenticate, @invalid_user_hash 
+      post :authenticate, @invalid_user_hash
       expect(assigns[:errors]).not_to be(nil)
     end
   end

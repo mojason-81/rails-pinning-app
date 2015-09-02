@@ -1,0 +1,26 @@
+<div class="form">
+<% if logged_in? %>
+  <% if @pin.user_id != session[:user_id] %>
+	<%= form_for(@pin, url: repin_path(@pin), html: {method: "post"}) do |f| %>
+
+		<%= f.fields_for :pinning do |p| %>
+      <div class="form-group">
+        <label for="board">Which board?</label>
+  			<%= p.collection_select(:board_id, current_user.boards, :id, :name, {}, {class: "form-control"}) %>
+      </div>
+			<%= p.hidden_field :user_id, value: session[:user_id] %>
+		<% end %>
+
+    <%= f.button :submit, class: "btn btn-default pinterest-theme-button" do %>
+      <i class="fa fa-diamond"></i>
+      Repin!
+    <% end %>
+
+  <% end %>
+  <% end %>
+<% end %>
+
+<% if !logged_in? %>
+  <%= link_to "Log in to repin!", login_path %>
+<% end %>
+</div>

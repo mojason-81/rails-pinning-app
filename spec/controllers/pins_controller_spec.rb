@@ -30,50 +30,50 @@ RSpec.describe PinsController do
       get :new
       expect(response.success?).to be(true)
     end
-    
+
     it 'renders the new view' do
-      get :new      
+      get :new
       expect(response).to render_template(:new)
     end
-    
+
     it 'assigns an instance variable to a new pin' do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
     end
   end
-  
+
   describe "POST create" do
     before(:each) do
-      @pin_hash = { 
-        title: "Rails Wizard", 
-        url: "http://railswizard.org", 
-        slug: "rails-wizard", 
+      @pin_hash = {
+        title: "Rails Wizard",
+        url: "http://railswizard.org",
+        slug: "rails-wizard",
         text: "A fun and helpful Rails Resource",
         category_id: 2}
     end
-    
+
     after(:each) do
       pin = Pin.find_by_slug("rails-wizard")
       if !pin.nil?
         pin.destroy
       end
     end
-    
+
     it 'responds with a redirect' do
       post :create, pin: @pin_hash
       expect(response.redirect?).to be(true)
     end
-    
+
     it 'creates a pin' do
-      post :create, pin: @pin_hash  
+      post :create, pin: @pin_hash
       expect(Pin.find_by_slug("rails-wizard").present?).to be(true)
     end
-    
+
     it 'redirects to the show view' do
       post :create, pin: @pin_hash
       expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
-    
+
     it 'redisplays new form on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
@@ -82,7 +82,7 @@ RSpec.describe PinsController do
       post :create, pin: @pin_hash
       expect(response).to render_template(:new)
     end
-    
+
     it 'assigns the @errors instance variable on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
@@ -95,10 +95,10 @@ RSpec.describe PinsController do
 
   describe "GET edit" do
     before(:each) do
-      @pin_hash = { 
-        title: "Rails Wizard", 
-        url: "http://railswizard.org", 
-        slug: "rails-wizard", 
+      @pin_hash = {
+        title: "Rails Wizard",
+        url: "http://railswizard.org",
+        slug: "rails-wizard",
         text: "A fun and helpful Rails Resource",
         category_id: 2}
       post :create, pin: @pin_hash
@@ -130,10 +130,10 @@ RSpec.describe PinsController do
 
   describe "POST update" do
     before(:each) do
-      @pin_hash = { 
-        title: "Rails Wizard", 
-        url: "http://railswizard.org", 
-        slug: "rails-wizard", 
+      @pin_hash = {
+        title: "Rails Wizard",
+        url: "http://railswizard.org",
+        slug: "rails-wizard",
         text: "A fun and helpful Rails Resource",
         category_id: 2}
       post :create, pin: @pin_hash
@@ -141,8 +141,8 @@ RSpec.describe PinsController do
 
       @updated_pin = {
         title: "updated",
-        url: "updated", 
-        slug: "updated", 
+        url: "updated",
+        slug: "updated",
         text: "updated",
         category_id: 1}
     end
@@ -179,7 +179,7 @@ RSpec.describe PinsController do
       login(@user)
       @pin = FactoryGirl.create(:pin)
     end
-   
+
     after(:each) do
       pin = Pin.find_by_slug("rails-wizard")
       if !pin.nil?
@@ -190,10 +190,11 @@ RSpec.describe PinsController do
 
     it 'responds with a redirect' do
     end
- 
+
     it 'creates a user.pin' do
     end
-   
+
     it 'redirects to the user show page' do
     end
+  end
 end

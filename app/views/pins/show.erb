@@ -27,10 +27,8 @@
   <% end %>
 </div>
 <br />
-<%= link_to repin_path(@pin), html_options = {class: "btn btn-default", method: "post"} do %>
-  <i class="fa fa-thumb-tack"></i>
-    Repin!
-<% end %>
+
+<%= render partial: "shared/repin_form", local: {pin: @pin} %>
 
 <%= link_to "Edit", "/pins/#{@pin.id}/edit", html_options = {class: "url btn btn-default"} %>
 
