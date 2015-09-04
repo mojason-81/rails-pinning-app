@@ -27,7 +27,6 @@ class BoardsController < ApplicationController
   # POST /boards.json
   def create
     @board = Board.new(board_params)
-
     respond_to do |format|
       if @board.save
         format.html { redirect_to @board, notice: 'Board was successfully created.' }

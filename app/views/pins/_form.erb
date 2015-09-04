@@ -1,10 +1,12 @@
 <div class="form">
 	<%= form_for(@pin) do |form_builder_object| %>
-		<label for="board">Which board?</label>
-		<%= form_builder_object.fields_for :pinning do |p| %>
+	<%= form_builder_object.fields_for :pinning do |p| %>
+		<div class="form-group">
+			<label for="board">Which board?</label>
 			<%= p.collection_select(:board_id, current_user.boards, :id, :name, {}, {class: "form-control"}) %>
-			<%= p.hidden_field :user_id, value: session[:user_id] %>
-		<% end %>
+		</div>
+		<%= p.hidden_field :user_id, value: session[:user_id] %>
+	<% end %>
 		<%= form_builder_object.hidden_field :user_id, value: session[:user_id] %>
 		<label for="pin_image">Image</label>
 		<%= form_builder_object.file_field :image %>
@@ -23,7 +25,10 @@
 		<label for="pin_slug">Slug</label><br />
 		<%= form_builder_object.text_field :slug %>
 		<br />
-		<%= form_builder_object.button %>
+		<%= form_builder_object.button :submit, class: "btn btn-default pinterest-theme-button" do %>
+		<i class="fa fa-thumb-tack"></i>
+		Submit
+	<% end %>
 	<% end %>
 
 	<% if !@errors.nil? %>
