@@ -19,13 +19,15 @@
           <li><%= link_to "Home", pins_path %></li>
           <li><%= link_to "New Board", new_board_path %></li>
           <li><%= link_to "Add a Pin", new_pin_path, method: :get %></li>
-          <li><%= link_to "Logout", logout_path(session), method: :delete %></li>
           <li><%= link_to "My Boards", user_path(current_user) %></li>
           <% if !user_boards.nil? %>
             <% user_boards.each do |board| %>
               <li class="dropdown-header"><%= link_to "#{board.name}", "/boards/#{board.id}", method: :get %></li>
             <% end %>
           <% end %>
+          <li><%= link_to "Find Folks to Follow", new_follower_path %></li>
+          <li><%= link_to "Current Followings", followers_path %></li>
+          <li><%= link_to "Logout", logout_path(session), method: :delete %></li>
         </ul>
       </div>
 	  <% end %>
