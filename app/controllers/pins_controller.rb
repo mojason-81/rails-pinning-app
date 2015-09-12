@@ -63,9 +63,6 @@ class PinsController < ApplicationController
   def repin
     @pin = Pin.find(params[:id])
     Pinning.create(user_id: session[:user_id], pin_id: @pin.id, board_id: params[:pin][:pinning][:board_id])
-    #@pinning = @pin.pinnings.create(user: current_user)
-    #@pinning.board_id = params[:board_id]
-    #@pinning.save
     redirect_to user_path(current_user)
   end
 
@@ -97,7 +94,7 @@ class PinsController < ApplicationController
     def pin_params
       params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image, :user_id)
     end
-
+    # the following is unused, but left in for reference
     def pinning_attributes
       params.require(:pinning).permit(user_id: session[:user_id], pin_id: @pin.id, board_id: :board_id)
     end
