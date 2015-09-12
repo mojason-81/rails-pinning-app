@@ -42,6 +42,7 @@ class PinsController < ApplicationController
     @pin = Pin.create(pin_params)
     #@pin.slug = @pin.make_slug(@pin.title)
     if @pin.valid?
+=begin
       if @pin.category_id == "rails"
         @pin.category_id = Category.find_by_name("rails")
       elsif @pin.category_id == "ruby"
@@ -50,6 +51,8 @@ class PinsController < ApplicationController
         @pin.category_id = 3
       end
       @pin.save
+=end
+      Pinning.create(user_id: session[:user_id], pin_id: @pin.id, board_id: params[:pin][:pinning][:board_id])
       redirect_to pin_path(@pin)
     else
       @errors = @pin.errors
@@ -59,7 +62,7 @@ class PinsController < ApplicationController
 
   def repin
     @pin = Pin.find(params[:id])
-    @pin.pinnings.create(user: current_user)
+    Pinning.create(user_id: session[:user_id], pin_id: @pin.id, board_id: params[:pin][:pinning][:board_id])
     #@pinning = @pin.pinnings.create(user: current_user)
     #@pinning.board_id = params[:board_id]
     #@pinning.save
@@ -93,6 +96,10 @@ class PinsController < ApplicationController
 
     def pin_params
       params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image, :user_id)
+    end
+
+    def pinning_attributes
+      params.require(:pinning).permit(user_id: session[:user_id], pin_id: @pin.id, board_id: :board_id)
     end
 
 end
