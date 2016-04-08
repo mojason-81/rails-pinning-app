@@ -22,13 +22,13 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   username: jason
-  password: D1ckn0s3
+  password: ******
 
 development:
   <<: *default
   database: coder-pinterest_development
   username: jason
-  password: D1ckn0s3
+  password: ******
   host: localhost
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -64,7 +64,7 @@ test:
   <<: *default
   database: coder-pinterest_test
   username: jason
-  password: D1ckn0s3
+  password: ******
   host: localhost
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
